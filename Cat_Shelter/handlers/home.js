@@ -6,14 +6,14 @@ const cats = require('../data/cats');
 module.exports = (req, res) => {
     const pathname = url.parse(req.url).pathname;
 
-    if(pathname === '/' && req.method === 'GET'){
+    if (pathname === '/' && req.method === 'GET') {
 
-        let filePath = path.normalize( 
+        let filePath = path.normalize(
             path.join(__dirname, '../views/home/index.html')
         );
 
         fs.readFile(filePath, (err, data) => {
-            if(err) {
+            if (err) {
                 console.log(err);
                 res.writeHead(404, {
                     'Content-Type': 'text/plain'
@@ -36,3 +36,5 @@ module.exports = (req, res) => {
         return true;
     }
 }
+
+

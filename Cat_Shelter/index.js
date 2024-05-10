@@ -4,8 +4,11 @@ const handlers = require('./handlers');
 
 http.createServer((req, res) => {
     
+    // console.log(handlers);
+
     for(let handler of handlers){
         if(!handler(req, res)){
+            console.log('no handler error');
             break;
         }
     }
