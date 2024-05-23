@@ -24,6 +24,14 @@ app.route('/home')
         res.send('Everything else')
     })
 
+app.post('/cats', (req, res, next) => {
+    console.log('Creating cat!');
+    next();
+},  (req, res) => {
+    res.redirect('/cats')
+})
+
+
 app.get('/cats/:catName', (req, res) => {
     const currentCatName = req.params.catName;
     res.send(`Cat name Page - ${currentCatName}`)
