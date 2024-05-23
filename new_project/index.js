@@ -11,6 +11,19 @@ app.get('/', (req, res) => {
     
 })
 
+app.route('/home')
+    .get((req, res) => {
+        res.send('GET Home page')
+    })
+	
+	.post((req, res) => {
+        res.send('POSTHome page')
+    })
+	
+	.all((req, res) => {
+        res.send('Everything else')
+    })
+
 app.get('/cats/:catName', (req, res) => {
     const currentCatName = req.params.catName;
     res.send(`Cat name Page - ${currentCatName}`)
