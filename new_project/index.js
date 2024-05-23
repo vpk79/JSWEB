@@ -12,7 +12,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/cats/:catName', (req, res) => {
-    res.send('Cat name Page')
+    const currentCatName = req.params.catName;
+    res.send(`Cat name Page - ${currentCatName}`)
 })
 
 app.get('/cats', (req, res) => {
