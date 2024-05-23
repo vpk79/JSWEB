@@ -11,6 +11,9 @@ app.get('/', (req, res) => {
     
 })
 
+app.get('/cats/:catName', (req, res) => {
+    res.send('Cat name Page')
+})
 
 app.get('/cats', (req, res) => {
     res.send('Cats Page')
