@@ -1,7 +1,16 @@
-
+const handlebars = require('express-handlebars')
 const express = require('express');
 
 const app = express();
+
+app.engine('hbs', handlebars.engine());
+
+app.set('view engine', 'hbs');
+
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
 
 app.get('/', (req, res) => {
     res.header({
@@ -23,6 +32,12 @@ app.route('/home')
 	.all((req, res) => {
         res.send('Everything else')
     })
+
+app.use('/cats', (req, res) => {
+    console.log('Creating cat!');
+    next();
+})
+
 
 app.post('/cats', (req, res, next) => {
     console.log('Creating cat!');
