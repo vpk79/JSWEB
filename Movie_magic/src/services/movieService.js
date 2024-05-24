@@ -14,21 +14,21 @@ exports.getAll = () => {
 }  
 
 exports.search = (title, genre, year) => {
-    let movies = movies.slice();
+    let result = movies.slice();
 
     if(title){
-        movies = movies.filter(movie => movie.title.includes(title));
+        result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
     }
 
     if (genre) {
-        movies = movies.filter(movie => movie.genre === genre);
+        result = result.filter(movie => movie.genre.toLowerCase() === genre.toLowerCase());
     }
 
     if (year) {
-        movies = movies.filter(movie => movie.year === year);
+        result = result.filter(movie => movie.year === year);
     }
 
-    return movies;
+    return result;
 }
 
 exports.getOne = (movieId) => {

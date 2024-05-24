@@ -14,8 +14,8 @@ router.get('/about', (req, res) => {
 
 router.get('/search', (req, res) => {
     const { title, genre, year } = req.query;
-    const movies = movieService.seartch(title, genre, year);
-    res.render('search', { movies });
+    const movieResult = movieService.search(title, genre, year);
+    res.render('search', { movies: movieResult, title, genre, year });
 })
 
 router.get('/404', (req, res) => {
