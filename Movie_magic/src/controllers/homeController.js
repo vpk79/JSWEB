@@ -13,7 +13,8 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/search', (req, res) => {
-    const movies = movieService.getAll();
+    const { title, genre, year } = req.query;
+    const movies = movieService.seartch(title, genre, year);
     res.render('search', { movies });
 })
 

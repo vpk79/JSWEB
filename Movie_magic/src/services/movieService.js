@@ -13,6 +13,24 @@ exports.getAll = () => {
     return [...movies];
 }  
 
+exports.search = (title, genre, year) => {
+    let movies = movies.slice();
+
+    if(title){
+        movies = movies.filter(movie => movie.title.includes(title));
+    }
+
+    if (genre) {
+        movies = movies.filter(movie => movie.genre === genre);
+    }
+
+    if (year) {
+        movies = movies.filter(movie => movie.year === year);
+    }
+
+    return movies;
+}
+
 exports.getOne = (movieId) => {
     const movie =  movies.find(movie => movie._id == movieId);
 
