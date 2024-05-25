@@ -11,9 +11,9 @@ router.post('/create', async (req, res) => {
         await movieService.create(newMovie);
         res.redirect('/');
 
-    } catch (error) {
-        console.log(err);
-        res.status(400).end();
+    } catch (err) {
+        console.log(err.message);
+        res.redirect('/create');
     }
 });
 
