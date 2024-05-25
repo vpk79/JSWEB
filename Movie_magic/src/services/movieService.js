@@ -1,14 +1,14 @@
 const Movie = require('../Models/Movie');
 
-exports.getAll =  () => {
-    const movies =  Movie.find();
+exports.getAll = () => {
+    const movies = Movie.find();
     return movies;
-}  
+}
 
 exports.search = async (title, genre, year) => {
     let result = await Movie.find().lean();
 
-    if(title){
+    if (title) {
         result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
     }
 
@@ -24,12 +24,22 @@ exports.search = async (title, genre, year) => {
 }
 
 exports.getOne = (movieId) => {
-    const movie =  Movie.findById(movieId);
+    const movie = Movie.findById(movieId);
     return movie;
 }
 
 exports.create = async (movieData) => {
-     const result = await Movie.create(movieData);
+    const result = await Movie.create(movieData);
 
-     return result;
+    return result;
 };
+
+exports.attach =  async (movieId, castId) => {
+    // return Movie.findByIdAndUpdate(movieId, { $push: { casts: castId } });
+    const movie = await this.getOne(movieId);
+
+    movie.casts.push(castId);
+
+    return movie.save();
+
+}
