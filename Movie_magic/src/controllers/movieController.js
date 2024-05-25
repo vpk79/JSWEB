@@ -23,7 +23,7 @@ router.get('/movies/:movieId', async (req, res) => {
     const movie = await movieService.getOne(movieId).lean();
     const casts = await castService.getByIds(movie.casts).lean();
 
-    console.log(casts);
+    
     movie.movieStars = '&#x2605;'.repeat(movie.rating);
 
     res.render('details', { movie, casts });

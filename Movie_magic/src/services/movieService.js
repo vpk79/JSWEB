@@ -5,22 +5,29 @@ exports.getAll = () => {
     return movies;
 }
 
-exports.search = async (title, genre, year) => {
-    let result = await Movie.find().lean();
+exports.search =  (title, genre, year) => {
+    // let result = await Movie.find().lean();
 
-    if (title) {
-        result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
-    }
+    let query = {};
 
-    if (genre) {
-        result = result.filter(movie => movie.genre.toLowerCase() === genre.toLowerCase());
-    }
+    if(title){ query.title = new RegExp(title, 'i')}
+    if(genre) {query.genre = genre.toLowerCase()}
+    if(year){ query.year = year}
+    // if (title) {
+    //     result = result.filter(movie => movie.title.toLowerCase().includes(title.toLowerCase()));
+    // }
 
-    if (year) {
-        result = result.filter(movie => movie.year === year);
-    }
+    // if (genre) {
+    //     result = result.filter(movie => movie.genre.toLowerCase() === genre.toLowerCase());
+    // }
 
-    return result;
+    // if (year) {
+    //     result = result.filter(movie => movie.year === year);
+    // }
+
+    // return result;
+
+    return Movie.find(query);
 }
 
 exports.getOne = (movieId) => {
