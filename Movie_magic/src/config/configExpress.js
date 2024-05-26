@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 function configExpress(app) {
     // set express to user folder public for all static files
@@ -7,6 +8,8 @@ function configExpress(app) {
 
     // intercept and parse any data coming with the request
     app.use(express.urlencoded({ extended: false }))
+
+    app.use(cookieParser());
 
     return app;
 }
