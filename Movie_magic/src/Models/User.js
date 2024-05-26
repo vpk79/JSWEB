@@ -1,4 +1,5 @@
 const {Schema, model} = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     email: {
@@ -12,6 +13,13 @@ const userSchema = new Schema({
         required: true
     },
 });
+
+// преди да се извърши действието - save, хешираме паролата и я презаписваме
+
+userSchema.pre('save', async function() {
+    const hash = await bcrypt.hash(this.password,12);
+    this.password = hash;
+})
 
 const User = model('User', userSchema);
 
