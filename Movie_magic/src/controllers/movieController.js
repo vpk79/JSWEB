@@ -10,7 +10,11 @@ router.get('/create', isAuth, (req, res) => {
 });
 
 router.post('/create', isAuth , async (req, res) => {
-    const newMovie = req.body;
+    const newMovie = {
+        ...req.body,
+        owner: req.user._id
+    }
+
     try {
         await movieService.create(newMovie);
         res.redirect('/');
@@ -29,7 +33,7 @@ router.get('/movies/:movieId', async (req, res) => {
 
     movie.movieStars = '&#x2605;'.repeat(movie.rating);
 
-    res.render('details', { movie, casts });
+    res.render('movie/details', { movie, casts });
 })
 
 router.get('/movies/:movieId/attach', isAuth , async (req, res) => {
