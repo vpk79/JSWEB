@@ -29,7 +29,11 @@ router.post('/login', async (req, res) => {
 });
 
 
+router.get('/logout', (req, res) => {
+    res.clearCookie('auth');
 
+    res.redirect('/');
+})
 
 
 
