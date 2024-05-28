@@ -29,11 +29,11 @@ router.get('/movies/:movieId', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getOne(movieId).lean();
     const casts = await castService.getByIds(movie.casts).lean();
-
+    const isOwner = movie.owner == req.user._id;
 
     movie.movieStars = '&#x2605;'.repeat(movie.rating);
 
-    res.render('movie/details', { movie, casts });
+    res.render('movie/details', { movie, casts, isOwner });
 })
 
 router.get('/movies/:movieId/attach', isAuth , async (req, res) => {
