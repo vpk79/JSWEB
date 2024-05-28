@@ -29,7 +29,7 @@ router.get('/movies/:movieId', async (req, res) => {
     const movieId = req.params.movieId;
     const movie = await movieService.getOne(movieId).lean();
     const casts = await castService.getByIds(movie.casts).lean();
-    const isOwner = movie.owner == req.user?._id;
+    const isOwner = movie.owner && movie.owner == req.user?._id;
    
 
     movie.movieStars = '&#x2605;'.repeat(movie.rating);
@@ -59,7 +59,13 @@ router.get('/movies/:movieId/edit', isAuth, async (req, res) => {
     const movie = await movieService.getOne(req.params.movieId).lean();
 
     res.render('movie/edit', { movie });
-})
+});
+
+router.get('/movies/:movieId/delete', isAuth, async (req, res) => { 
+    await movieService.delete(req.params.movieId);
+
+    res.redirect('/');
+});
 
 
 
