@@ -1,12 +1,12 @@
 # Express App Cheat Sheet
 
-1. Initialize project  - npm init -y
+1. Initialize project                    - npm init -y
 2. Nodemon
-    * Install nodemon  - npm i -D nodemon
-    * Add start script  - "start": "nodemon index.js"
+    * Install nodemon                    - npm i -D nodemon
+    * Add start script                   - "start": "nodemon index.js"
     * create index.js in root
 3. Express
-    * Install express  - npm i express
+    * Install express                    - npm i express
     * Start initial express server
     * Add static middleware
     * Add resources to public folder
