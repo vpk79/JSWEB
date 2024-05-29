@@ -8,8 +8,8 @@
 3. Express
     * Install express                    - npm i express
     * Start initial express server
-    * Add static middleware
-    * Add resources to public folder
+    * Add static middleware              - create public folder
+    * Add static resources to public folder  - css, images and etc.
     * Add body parser
     * Add routes module
 4. Handlebars
