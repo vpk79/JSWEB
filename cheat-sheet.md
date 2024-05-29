@@ -3,9 +3,10 @@
 1. Initialize project  - npm init -y
 2. Nodemon
     * Install nodemon  - npm i -D nodemon
-    * Add start script
+    * Add start script  - "start": "nodemon index.js"
+    * create index.js in root
 3. Express
-    * Install express
+    * Install express  - npm i express
     * Start initial express server
     * Add static middleware
     * Add resources to public folder
