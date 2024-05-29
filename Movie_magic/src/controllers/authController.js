@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const authService = require('../services/authService');
+const { mongoose } = require('mongoose');
+const { getErrorMessages } = require('../utils/errorUtils');
 
 router.get('/register', (req, res) => {
     res.render('auth/register')
@@ -14,7 +16,10 @@ router.post('/register', async (req, res) => {
 
 
     } catch (err) {
-      res.render('auth/register', {error: err.message})
+        const message = getErrorMessages(err);
+
+        res.render('auth/register', { ...userData, error: message });
+
     }
 
 });
@@ -25,12 +30,21 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const token = await authService.login(email, password);
 
-    res.cookie('auth', token);
-  
+    try {
+        const token = await authService.login(email, password);
 
-    res.redirect('/');
+        res.cookie('auth', token);
+
+
+        res.redirect('/');
+    } catch (error) {
+        const message = getErrorMessages(error);
+
+        res.status(400).render('auth/login', { error: message });
+    }
+
+
 });
 
 
