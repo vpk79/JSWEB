@@ -22,7 +22,7 @@ app.set('view engine', 'hbs');
 app.use(routes);
 
 // connect to database with mongoose
-mongoose.connect('mongoDb://localhost:27017/course-book');
+mongoose.connect('mongodb://localhost:27017/course-book');
 
 // event listener който потвърждава че база данните е свързана
 mongoose.connection.on('connected', ()=> console.log('DB is connected'));

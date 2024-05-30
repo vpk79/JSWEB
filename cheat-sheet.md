@@ -24,7 +24,7 @@
     * Add partials dir      - views/partials
 5. Database
     * Install  mongoose  -  npm i mongoose
-    * Setup db connection
+    * Setup db connection   - mongoose.connect('mongodb://localhost:27017/course-book');
     * Add user model
 6. Register
     * Fix navigation links
