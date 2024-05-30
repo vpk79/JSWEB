@@ -10,8 +10,8 @@
     * Start initial express server
     * Add static middleware              - create public folder
     * Add static resources to public folder  - css, images and etc.
-    * Add body parser
-    * Add routes module
+    * Add body parser                       - urlencoded
+    * Add routes module                     - модулярен route в отделен файл
 4. Handlebars
     * Install express-handlebars
     * Config handlebars with express
