@@ -22,11 +22,11 @@ BASIC SKELETON
     * Add home view
     * Add home controller
     * Add home controller to routes
-    * Add main layout       - views/layouts/main.hbs  - default folders and files
-    * Add partials dir      - views/partials
+    * Add main layout                   - views/layouts/main.hbs  - default folders and files
+    * Add partials dir                   - views/partials
 5. Database
-    * Install  mongoose  -  npm i mongoose
-    * Setup db connection   - mongoose.connect('mongodb://localhost:27017/course-book');
+    * Install  mongoose                 -  npm i mongoose
+    * Setup db connection                - mongoose.connect('mongodb://localhost:27017/course-book');
     * Add user model
 --------------------------------------------------------------------------------------
 ADVANCED SKELETON
