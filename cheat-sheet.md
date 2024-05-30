@@ -13,8 +13,8 @@
     * Add body parser                       - urlencoded
     * Add routes module                     - модулярен route в отделен файл
 4. Handlebars
-    * Install express-handlebars
-    * Config handlebars with express
+    * Install express-handlebars            -  npm i express-handlebars
+    * Config handlebars with express        - app.engine('hbs', handlebars.engine({ extname: 'hbs',}));
     * Add views folder with resources
     * Add home view
     * Add home controller
