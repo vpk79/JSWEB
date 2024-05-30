@@ -1,10 +1,7 @@
 // с помощта на Router() създаваме модулярен рутер
 const router = require('express').Router();
+const homeController = require('./controllers/homeController');
 
-
-router.get('/', (req, res) => {
-    res.send('Hello world');
-});
-
+router.use(homeController);
 
 module.exports = router;

@@ -1,5 +1,7 @@
 # Express App Cheat Sheet
-
+---------------------------------------------------------------
+BASIC SKELETON
+---------------------------------------------------------------
 1. Initialize project                    - npm init -y
 2. Nodemon
     * Install nodemon                    - npm i -D nodemon
@@ -26,6 +28,9 @@
     * Install  mongoose  -  npm i mongoose
     * Setup db connection   - mongoose.connect('mongodb://localhost:27017/course-book');
     * Add user model
+--------------------------------------------------------------------------------------
+ADVANCED SKELETON
+--------------------------------------------------------------------------------------
 6. Register
     * Fix navigation links
     * Add register page (view, controller, route)
