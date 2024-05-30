@@ -15,6 +15,8 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs',
 }));
 
+app.set('view engine', 'hbs');
+
 // задаваме нашия сървър да ползва модулярния рутер за пътищата като middleware - добре е да стои последен
 app.use(routes);
 

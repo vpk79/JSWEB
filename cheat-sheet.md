@@ -15,6 +15,7 @@
 4. Handlebars
     * Install express-handlebars            -  npm i express-handlebars
     * Config handlebars with express        - app.engine('hbs', handlebars.engine({ extname: 'hbs',}));
+                                              app.set('view engine', 'hbs');
     * Add views folder with resources
     * Add home view
     * Add home controller
