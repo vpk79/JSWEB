@@ -5,7 +5,7 @@ const app = express();
 // слагаме за middleware - настройка да използва папка public за статичните файлове
 app.use(express.static('public')); 
 
-// още един middleware - body parser който позволява данните да пристигнат в req.body парстнати
+// още един middleware - body parser който позволява данните от формите да пристигнат в req.body парстнати
 app.use(express.urlencoded({extended: false}));
 
 app.get('/', (req, res) => {
