@@ -23,12 +23,12 @@ userSchema.pre('save', async function () {             // преди създа�
     this.password = await bcrypt.hash(this.password, 12)
 });
 
-userSchema.virtual('rePassword')
-    .set(function(value){
-        if(value !== this.password){
-            throw new Error('Password mismatch');
-        }
-    })
+// userSchema.virtual('rePassword')
+//     .set(function(value){
+//         if(value !== this.password){
+//             throw new Error('Password mismatch');
+//         }
+//     })
 
 const User = mongoose.model('User', userSchema);
 

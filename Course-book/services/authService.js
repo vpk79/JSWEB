@@ -3,7 +3,13 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 
-exports.register = (userData) => User.create(userData); // връща promise със обработените данни
+exports.register = (userData) => {
+    if(userData.password !== userData.rePassword){
+        throw new Error('Password mismatch');
+    }
+
+    return User.create(userData); // връща promise със обработените данни
+}
 
 exports.login = async ({email, password}) => {
 
