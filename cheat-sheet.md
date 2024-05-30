@@ -23,7 +23,7 @@
     * Add main layout       - views/layouts/main.hbs  - default folders and files
     * Add partials dir      - views/partials
 5. Database
-    * Install  mongoose
+    * Install  mongoose  -  npm i mongoose
     * Setup db connection
     * Add user model
 6. Register
