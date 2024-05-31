@@ -3,12 +3,13 @@ const app = express();
 const routes = require('./routes');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
+const { authMiddleware } = require('./middlewares/authMiddleware');
 
 // слагаме за middleware - настройка да използва папка public за статичните файлове
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 // още един middleware - body parser който позволява данните от формите да пристигнат в req.body парстнати
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 
 // задаване на express да използва handlebars като view engine
@@ -18,6 +19,9 @@ app.engine('hbs', handlebars.engine({
 
 app.set('view engine', 'hbs');
 
+// middleware за автентикация
+app.use(authMiddleware);
+
 // задаваме нашия сървър да ползва модулярния рутер за пътищата като middleware - добре е да стои последен
 app.use(routes);
 
@@ -25,8 +29,8 @@ app.use(routes);
 mongoose.connect('mongodb://localhost:27017/course-book');
 
 // event listener който потвърждава че база данните е свързана
-mongoose.connection.on('connected', ()=> console.log('DB is connected'));
+mongoose.connection.on('connected', () => console.log('DB is connected'));
 // event listener при грешка в база данните ще отпечата грешката
-mongoose.connection.on('error', (err)=> console.log('err'));
+mongoose.connection.on('error', (err) => console.log('err'));
 
 app.listen(5000, () => console.log('Server is listening on port 5000...'));
