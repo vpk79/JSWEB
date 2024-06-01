@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:courseId/details', async (req, res) => {
-    const course = await courseService.getOne(req.params.courseId).lean();
+    const course = await courseService.getOneDetailed(req.params.courseId).lean();
 
     res.render('courses/details', { ...course });
 })

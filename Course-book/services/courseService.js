@@ -6,6 +6,8 @@ exports.getAll = () => Course.find();
 
 exports.getOne = (courseId) => Course.findById(courseId);
 
+exports.getOneDetailed = (courseId) => this.getOne(courseId).populate('owner');
+
 exports.create = async (userId, courseData) => {
 
     const createdCourse = await Course.create({
