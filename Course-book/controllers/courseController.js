@@ -15,7 +15,7 @@ router.post('/create', isAuth, async (req, res) => {
         res.redirect('/courses')
 
     } catch (error) {
-        res.render('courses/create', {...courseData, error: getErrorMessage(err)});
+        res.render('courses/create', {...courseData, error: getErrorMessage(error)});
     }
 });
 
