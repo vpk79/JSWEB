@@ -8,11 +8,16 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const userData = req.body;   // взимаме данните от формата и ги предаваме на асинхронен сървис
 
-    const token = await authService.register(userData);
+    try {
+        const token = await authService.register(userData);
 
-    res.cookie('auth', token);
-
-    res.redirect('/');
+        res.cookie('auth', token);
+        res.redirect('/');
+    } catch (error) {
+        
+        
+    }
+   
 })
 
 
