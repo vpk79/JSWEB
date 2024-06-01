@@ -30,4 +30,18 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-})
+
+    signUpList: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }],
+
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    },
+});
+
+const Course = mongoose.model('Course', courseSchema);
+
+module.exports = Course;
