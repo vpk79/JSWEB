@@ -3,7 +3,13 @@ const { isAuth } = require('../middlewares/authMiddleware');
 const courseService = require('../services/courseService');
 const { getErrorMessage } = require('../utils/errorUtils');
 
-router.get('/create', isAuth,  (req, res) => {
+
+router.get('/', async (req, res) => {
+    const courses = await courseService.getAll().lean();
+    res.render('courses/catalog', { courses })
+})
+
+router.get('/create', isAuth, (req, res) => {
     res.render('courses/create');
 });
 
@@ -15,7 +21,7 @@ router.post('/create', isAuth, async (req, res) => {
         res.redirect('/courses')
 
     } catch (error) {
-        res.render('courses/create', {...courseData, error: getErrorMessage(error)});
+        res.render('courses/create', { ...courseData, error: getErrorMessage(error) });
     }
 });
 
