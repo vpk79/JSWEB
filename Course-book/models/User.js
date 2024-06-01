@@ -17,7 +17,17 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Password is required'],
-    }
+    },
+
+    createdCourses: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Course'
+    }],
+
+    signeUpCourses: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Course'
+    }],
 });
 
 userSchema.pre('save', async function () {             // преди създаването на модело и save хешираме паролата
