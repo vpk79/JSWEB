@@ -70,3 +70,6 @@ ADVANCED SKELETON
     * Add login error handling
 11. Last fixes
     * Dynamic navigation
+
+
+!! when use update database command must ALWAYS use - {runValidators: true}
