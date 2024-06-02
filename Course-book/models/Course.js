@@ -21,7 +21,7 @@ const courseSchema = new mongoose.Schema({
 
    image: {
         type: String,
-        match: /^https?:\/\/$/
+        match: /^https?:\/\//,
         required: true,
     },
 
@@ -42,11 +42,19 @@ const courseSchema = new mongoose.Schema({
         ref: 'User'
     }],
 
+    createdAt: Date,
+
     owner: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
 });
+
+courseSchema.pre('save', function(){
+    if(!this.createdAt) {
+        this.createdAt = Date.now();
+    }
+})
 
 const Course = mongoose.model('Course', courseSchema);
 
