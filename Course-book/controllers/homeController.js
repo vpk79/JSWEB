@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 router.get('/profile', isAuth, async (req, res) => {
     const user = await userService.getInfo(req.user._id).lean();
     const createdCourseCount = user.createdCourses.length;
-    const signUpCoursesCount = user.signeUpCourses.length;
+    const signUpCoursesCount = user.signedUpCourses.length;
     res.render('profile', { user, createdCourseCount, signUpCoursesCount });
 });
 

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         ref: 'Course'
     }],
 
-    signeUpCourses: [{
+    signedUpCourses: [{
         type: mongoose.Types.ObjectId,
         ref: 'Course'
     }],
