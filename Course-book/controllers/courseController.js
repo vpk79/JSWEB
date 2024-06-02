@@ -41,4 +41,20 @@ router.post('/create', isAuth, async (req, res) => {
     }
 });
 
+router.get('/:courseId/delete', isCourseOwner, async (req, res) => {
+   
+    await courseService.delete(req.params.courseId);
+    res.redirect('/courses');
+})
+
+async function isCourseOwner(req, res, next){
+    const course = await courseService.getOne(req.params.courseId);
+
+    if(course.owner != req.user?._id){
+       return res.redirect(`/courses/${req.params.courseId}/details`);
+    }
+
+    next();
+}
+
 module.exports = router;

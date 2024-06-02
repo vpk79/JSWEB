@@ -24,3 +24,5 @@ exports.create = async (userId, courseData) => {
 
     return createdCourse;
 }
+
+exports.delete = (courseId) => Course.findByIdAndDelete(courseId);
