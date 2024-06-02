@@ -14,6 +14,10 @@ router.get('/:courseId/details', async (req, res) => {
     const course = await courseService.getOneDetailed(req.params.courseId).lean();
 
     res.render('courses/details', { ...course });
+});
+
+router.get('/:courseId/sign-up', async(req, res) => {
+  await  courseService.signUp()
 })
 
 router.get('/create', isAuth, (req, res) => {
