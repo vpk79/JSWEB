@@ -1,5 +1,5 @@
 {
-  "name": "treasure_vault",
+  "name": "course-book",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "express-handlebars": "^7.1.2"
+    "express-handlebars": "^7.1.2",
+    "mongoose": "^8.4.0"
   }
 }

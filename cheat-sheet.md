@@ -18,12 +18,13 @@ BASIC SKELETON
     * Install express-handlebars            -  npm i express-handlebars
     * Config handlebars with express        - app.engine('hbs', handlebars.engine({ extname: 'hbs',}));
                                               app.set('view engine', 'hbs');
+    * Add main layout                   - views/layouts/main.hbs  - default folders and files
+    * Add partials dir                   - views/partials                                          
     * Add views folder with resources 
     * Add home view
     * Add home controller
     * Add home controller to routes
-    * Add main layout                   - views/layouts/main.hbs  - default folders and files
-    * Add partials dir                   - views/partials
+   
 5. Database
     * Install  mongoose                 -  npm i mongoose
     * Setup db connection                - mongoose.connect('mongodb://localhost:27017/course-book');
