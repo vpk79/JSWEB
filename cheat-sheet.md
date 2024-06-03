@@ -32,13 +32,14 @@ BASIC SKELETON
 --------------------------------------------------------------------------------------
 ADVANCED SKELETON
 --------------------------------------------------------------------------------------
+    * Add folder - views/auth
 6. Register
     * Fix navigation links
     * Add register page (view, controller, route)
     * Fix register form
     * Add post register action
     * Add authService
-    * Install bcrypt
+    * Install bcrypt  - npm i bcrypt
     * Hash password
     * Check confirm password
     * Check if user exists
