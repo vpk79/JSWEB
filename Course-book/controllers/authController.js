@@ -5,7 +5,7 @@ const { getErrorMessage } = require('../utils/errorUtils');
 
 router.get('/register', isGuest, (req, res) => {
     res.render('auth/register');
-})
+});
 
 router.post('/register', isGuest, async (req, res) => {
     const userData = req.body;   // взимаме данните от формата и ги предаваме на асинхронен сървис

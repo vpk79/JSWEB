@@ -44,8 +44,8 @@ ADVANCED SKELETON
     * Check confirm password
     * Check if user exists
 7. Login
-    * Install jsonwebtoken
-    * Install cookie-parser
+    * Install jsonwebtoken - npm i jsonwebtoken
+    * Install cookie-parser - npm i cookie-parser
     * Add cookieParser middleware
     * Optionally: convert to promise based 
     * Add login page
