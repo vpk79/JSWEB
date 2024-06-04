@@ -13,7 +13,7 @@ exports.register = async (userData) => {
     if(user){
         throw new Error('User already exist');
     }
-
+    
     const createdUser = await User.create(userData); 
 
     const token = await generateToken(createdUser);
