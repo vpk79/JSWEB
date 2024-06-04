@@ -4,12 +4,15 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true
+        minLength: [10, "Email is shorter than 10 characters"],
+        required: [true, "Email is required"],
+        unique: true
     },
 
     password: {
         type: String,
-        required: true
+        minLength: [4,"Password is shorter than 4 characters"],
+        required: [true, "Password is required"]
     },
 
     addedStones: [{

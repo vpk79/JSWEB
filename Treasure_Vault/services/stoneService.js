@@ -15,6 +15,8 @@ exports.like = async (stoneId, userId) => {
     await User.findByIdAndUpdate(userId, { $push: { likedStones: stoneId } });
 };
 
+
+
 exports.create = async (userId, stoneData) => {
 
     const addedStone = await Stone.create({
@@ -30,3 +32,7 @@ exports.create = async (userId, stoneData) => {
 exports.edit = (stoneId, stoneData) => Stone.findByIdAndUpdate(stoneId, stoneData, { runValidators: true });
 
 exports.delete = (stoneId) => Stone.findByIdAndDelete(stoneId);
+
+exports.search = (name) => {
+    return Stone.find({name});
+}

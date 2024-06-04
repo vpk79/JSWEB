@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { isAuth } = require('../middlewares/authMiddleware');
+const { isGuest, isAuth } = require('../middlewares/authMiddleware');
 const { isStoneOwner } = require('../middlewares/stoneMiddleware');
 const stoneService = require('../services/stoneService');
 const { getErrorMessage } = require('../utils/errorUtils');
@@ -29,13 +29,25 @@ router.post('/create', isAuth, async (req, res) => {
 
 router.get('/:stoneId/details', async (req, res) => {
     let isLiked = false;
+    let logged = req.user;
     const stone = await stoneService.getOneDetailed(req.params.stoneId).lean();
-    const checkUserLikes = stone.likedList.some(user => user._id == req.user._id);
-    if(checkUserLikes.length > 0) isLiked = true;
+    isLiked = stone.likedList.some(user => user._id == req.user?._id);
     const isOwner = stone.owner && stone.owner._id == req.user?._id;
-    // const isSigned = stone.signUpList.some(user => user._id == req.user?._id)
 
-    res.render('stones/details', { ...stone, isLiked, isOwner});
+    res.render('stones/details', { ...stone, isLiked, isOwner, logged });
+});
+
+router.get('/:stoneId/like', async (req, res) => {
+    let isLiked = false;
+    const stone = await stoneService.getOneDetailed(req.params.stoneId).lean();
+    isLiked = stone.likedList.some(user => user._id == req.user._id);
+
+    if (isLiked) {
+        res.redirect('/404')
+    } else {
+        stoneService.like(stone._id, req.user._id);
+        res.redirect(`/stones/${stone._id}/details`);
+    }
 });
 
 // router.get('/:stoneId/sign-up', async (req, res) => {
@@ -48,28 +60,37 @@ router.get('/:stoneId/details', async (req, res) => {
 
 
 
-// router.post('/:stoneId/edit', isStoneOwner, async (req, res) => {
-//     const stoneData = req.body;
+router.post('/:stoneId/edit', isStoneOwner, async (req, res) => {
+    const stoneData = req.body;
 
-//     try {
-//         await stoneService.edit(req.params.stoneId, stoneData);
-//         res.redirect(`/stones/${req.params.stoneId}/details`);
+    try {
+        await stoneService.edit(req.params.stoneId, stoneData);
+        res.redirect(`/stones/${req.params.stoneId}/details`);
 
-//     } catch (error) {
-//         res.render('stones/edit', { ...stoneData, error: getErrorMessage(error) })
-//     }
-// });
+    } catch (error) {
+        res.render('stones/edit', { ...stoneData, error: getErrorMessage(error) })
+    }
+});
 
-// router.get('/:stoneId/edit', isStoneOwner, async (req, res) => {
+router.get('/:stoneId/edit', isStoneOwner, async (req, res) => {
 
-//     res.render('stones/edit', { ...req.stone });
-// });
+    res.render('stones/edit', { ...req.stone });
+});
 
-// router.get('/:stoneId/delete', isStoneOwner, async (req, res) => {
+router.get('/:stoneId/delete', isStoneOwner, async (req, res) => {
 
-//     await stoneService.delete(req.params.stoneId);
-//     res.redirect('/stones');
-// });
+    await stoneService.delete(req.params.stoneId);
+    res.redirect(`/stones/dashboard`);
+});
 
+
+router.get('/search', async (req, res) => {
+    const { name } = req.query;
+    console.log(name);
+    const allStones = !name ? await stoneService.getAll().lean() : await stoneService.search(name).lean();
+    console.log(allStones);
+    res.render('stones/search', { allStones });
+
+});
 
 module.exports = router;
