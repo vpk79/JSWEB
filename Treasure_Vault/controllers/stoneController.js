@@ -27,46 +27,46 @@ router.post('/create', isAuth, async (req, res) => {
     }
 });
 
-// router.get('/:courseId/details', async (req, res) => {
-//     const course = await courseService.getOneDetailed(req.params.courseId).lean();
-//     const signUpUsers = course.signUpList.map(user => user.username).join(', ');
-//     const isOwner = course.owner && course.owner._id == req.user?._id;
-//     const isSigned = course.signUpList.some(user => user._id == req.user?._id)
+router.get('/:stoneId/details', async (req, res) => {
+    const stone = await stoneService.getOneDetailed(req.params.stoneId).lean();
+    const signUpUsers = stone.signUpList.map(user => user.username).join(', ');
+    const isOwner = stone.owner && stone.owner._id == req.user?._id;
+    const isSigned = stone.signUpList.some(user => user._id == req.user?._id)
 
-//     res.render('courses/details', { ...course, signUpUsers, isOwner, isSigned });
-// });
+    res.render('stones/details', { ...stone, signUpUsers, isOwner, isSigned });
+});
 
-// router.get('/:courseId/sign-up', async (req, res) => {
-//     await courseService.signUp(req.params.courseId, req.user._id);
+// router.get('/:stoneId/sign-up', async (req, res) => {
+//     await stoneService.signUp(req.params.stoneId, req.user._id);
 
-//     res.redirect(`/courses/${req.params.courseId}/details`);
+//     res.redirect(`/stones/${req.params.stoneId}/details`);
 // })
 
 
 
 
 
-// router.post('/:courseId/edit', isCourseOwner, async (req, res) => {
-//     const courseData = req.body;
+// router.post('/:stoneId/edit', isStoneOwner, async (req, res) => {
+//     const stoneData = req.body;
 
 //     try {
-//         await courseService.edit(req.params.courseId, courseData);
-//         res.redirect(`/courses/${req.params.courseId}/details`);
+//         await stoneService.edit(req.params.stoneId, stoneData);
+//         res.redirect(`/stones/${req.params.stoneId}/details`);
 
 //     } catch (error) {
-//         res.render('courses/edit', { ...courseData, error: getErrorMessage(error) })
+//         res.render('stones/edit', { ...stoneData, error: getErrorMessage(error) })
 //     }
 // });
 
-// router.get('/:courseId/edit', isCourseOwner, async (req, res) => {
+// router.get('/:stoneId/edit', isStoneOwner, async (req, res) => {
 
-//     res.render('courses/edit', { ...req.course });
+//     res.render('stones/edit', { ...req.stone });
 // });
 
-// router.get('/:courseId/delete', isCourseOwner, async (req, res) => {
+// router.get('/:stoneId/delete', isStoneOwner, async (req, res) => {
 
-//     await courseService.delete(req.params.courseId);
-//     res.redirect('/courses');
+//     await stoneService.delete(req.params.stoneId);
+//     res.redirect('/stones');
 // });
 
 
