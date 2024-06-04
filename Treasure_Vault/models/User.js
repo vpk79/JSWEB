@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
 
-    createdStones: [{
+    addedStones: [{
         type: mongoose.Types.ObjectId,
         ref: 'Stone'
     }],

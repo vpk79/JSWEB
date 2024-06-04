@@ -15,16 +15,16 @@ exports.liked = async (stoneId, userId) => {
     await User.findByIdAndUpdate(userId, { $push: { likedStones: stoneId } });
 }
 
-exports.create = async (userId, stoneData) => {
+exports.add = async (userId, stoneData) => {
 
-    const createdStone = await Stone.create({
+    const addedStone = await Stone.create({
         owner: userId,
         ...stoneData,
     });
 
-    await User.findByIdAndUpdate(userId, { $push: { createdStones: createdStone._id } });
+    await User.findByIdAndUpdate(userId, { $push: { addedStones: addedStone._id } });
 
-    return createdStone;
+    return addedStone;
 };
 
 exports.edit = (stoneId, stoneData) => Stone.findByIdAndUpdate(stoneId, stoneData, { runValidators: true });
