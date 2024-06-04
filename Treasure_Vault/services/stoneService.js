@@ -15,7 +15,7 @@ exports.liked = async (stoneId, userId) => {
     await User.findByIdAndUpdate(userId, { $push: { likedStones: stoneId } });
 }
 
-exports.add = async (userId, stoneData) => {
+exports.create = async (userId, stoneData) => {
 
     const addedStone = await Stone.create({
         owner: userId,

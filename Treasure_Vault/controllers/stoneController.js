@@ -11,6 +11,22 @@ router.get('/dashboard', async (req, res) => {
     res.render('stones/dashboard', { stones })
 });
 
+router.get('/create', isAuth, (req, res) => {
+    res.render('stones/create');
+});
+
+router.post('/create', isAuth, async (req, res) => {
+    const stoneData = req.body;
+
+    try {
+        await stoneService.create(req.user._id, stoneData);
+        res.redirect('/stones/dashboard')
+
+    } catch (error) {
+        res.render('stones/create', { ...stoneData, error: getErrorMessage(error) });
+    }
+});
+
 // router.get('/:courseId/details', async (req, res) => {
 //     const course = await courseService.getOneDetailed(req.params.courseId).lean();
 //     const signUpUsers = course.signUpList.map(user => user.username).join(', ');
@@ -26,21 +42,9 @@ router.get('/dashboard', async (req, res) => {
 //     res.redirect(`/courses/${req.params.courseId}/details`);
 // })
 
-// router.get('/create', isAuth, (req, res) => {
-//     res.render('courses/create');
-// });
 
-// router.post('/create', isAuth, async (req, res) => {
-//     const courseData = req.body;
 
-//     try {
-//         await courseService.create(req.user._id, courseData);
-//         res.redirect('/courses')
 
-//     } catch (error) {
-//         res.render('courses/create', { ...courseData, error: getErrorMessage(error) });
-//     }
-// });
 
 // router.post('/:courseId/edit', isCourseOwner, async (req, res) => {
 //     const courseData = req.body;
