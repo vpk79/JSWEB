@@ -10,10 +10,20 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+
+    createdStones: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Stone'
+    }],
+
+    likedStones: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Stone'
+    }],
 });
 
-userSchema.pre('save', async function () {             // преди създаването на модело и save хешираме паролата
+userSchema.pre('save', async function () {             // преди създаването на модела и save хешираме паролата
     this.password = await bcrypt.hash(this.password, 12)
 });
 

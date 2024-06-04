@@ -54,7 +54,7 @@ courseSchema.pre('save', function(){
     if(!this.createdAt) {
         this.createdAt = Date.now();
     }
-})
+});
 
 const Course = mongoose.model('Course', courseSchema);
 
