@@ -4,38 +4,45 @@
                 <div id="details-wrapper">
                     <p id="details-title">Name: Beryl</p>
                     <div id="img-wrapper">
-                        <img src="./static/images/beryl.webp" />
+                        <img src="{{image}}" />
                     </div>
                     <div id="info-wrapper">
                         <table>
                             <tr>
                                 <td>
                                     <p>
-                                        Category: <span id="details-category">Cyclosilicate</span>
+                                        Category: <span id="details-category">{{category}}</span>
                                     </p>
                                 </td>
                                 <td>
-                                    <p>Color: <span id="details-color">Green</span></p>
+                                    <p>Color: <span id="details-color">{{color}}</span></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>Location: <span id="details-location">Colombia</span></p>
+                                    <p>Location: <span id="details-location">{{location}}</span></p>
                                 </td>
                                 <td>
-                                    <p>Formula: <span id="details-formula">Be3Al2Si6O18</span></p>
+                                    <p>Formula: <span id="details-formula">{{formula}}</span></p>
                                 </td>
                             </tr>
                         </table>
-                        <p>Description: <span id="details-description">Beryl is a common mineral, and it is widely distributed in nature. It is found most commonly in granitic pegmatites, but also occurs in mica schists, such as those of the Ural Mountains, and in limestone in Colombia. It is less common in ordinary granite and is only infrequently found in nepheline syenite.</span></p>
+                        <p>Description: <span id="details-description">{{description}}</span></p>
                     </div>
 
                     <!--Edit and Delete are only for creator-->
+                   
                     <div id="action-buttons">
-                        <a href="#" id="edit-btn">Edit</a>
-                        <a href="#" id="delete-btn">Delete</a>
-                        <a href="#" id="like-btn">Like</a>
+                        {{#if isOwner}}
+                        <a href="/stones/{{_id}}/edit" id="edit-btn">Edit</a>
+                        <a href="/stones/{{_id}}/delete" id="delete-btn">Delete</a>
+                        {{/if}}
+                        {{#unless isLiked}}
+                        <a href="/stones/{{_id}}/like" id="like-btn">Like</a>
+                        {{else}}
                         <p id="already-liked">You already liked this stone!</p>
+                        {{/unless}}
                     </div>
+                    
                 </div>
             </section>

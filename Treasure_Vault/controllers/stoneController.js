@@ -28,12 +28,14 @@ router.post('/create', isAuth, async (req, res) => {
 });
 
 router.get('/:stoneId/details', async (req, res) => {
+    let isLiked = false;
     const stone = await stoneService.getOneDetailed(req.params.stoneId).lean();
-    const signUpUsers = stone.signUpList.map(user => user.username).join(', ');
+    const checkUserLikes = stone.likedList.some(user => user._id == req.user._id);
+    if(checkUserLikes.length > 0) isLiked = true;
     const isOwner = stone.owner && stone.owner._id == req.user?._id;
-    const isSigned = stone.signUpList.some(user => user._id == req.user?._id)
+    // const isSigned = stone.signUpList.some(user => user._id == req.user?._id)
 
-    res.render('stones/details', { ...stone, signUpUsers, isOwner, isSigned });
+    res.render('stones/details', { ...stone, isLiked, isOwner});
 });
 
 // router.get('/:stoneId/sign-up', async (req, res) => {

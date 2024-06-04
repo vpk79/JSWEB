@@ -10,10 +10,10 @@ exports.getLatest = () => Stone.find().sort({ createdAt: -1 }).limit(3);
 
 exports.getOneDetailed = (stoneId) => this.getOne(stoneId).populate('owner').populate('likedList');
 
-exports.liked = async (stoneId, userId) => {
+exports.like = async (stoneId, userId) => {
     await Stone.findByIdAndUpdate(stoneId, { $push: { likedList: userId } });
     await User.findByIdAndUpdate(userId, { $push: { likedStones: stoneId } });
-}
+};
 
 exports.create = async (userId, stoneData) => {
 
