@@ -19,7 +19,7 @@ router.get('/:volcanoId/details', isUserVoted, async (req, res) => {
     res.render('volcanoes/details', { ...volcano, votedUsers, isOwner, isVoted });
 });
 
-router.get('/:volcanoId/vote', isUserVoted, async (req, res) => {
+router.get('/:volcanoId/vote', isAuth, isUserVoted, async (req, res) => {
         const isVoted = req.isVoted;
     if (!isVoted) await volcanoService.vote(req.params.volcanoId, req.user._id);
 

@@ -15,4 +15,11 @@ router.get('/profile', isAuth, async (req, res) => {
     res.render('profile', { user, createdVolcanoCount, signUpVolcanoesCount });
 });
 
+
+router.get('/search', async (req, res) => {
+    const { name, type } = req.query;
+    const volcanoes = await volcanoService.search(name, type).lean();
+    res.render('search', { name, type});
+})
+
 module.exports = router;
