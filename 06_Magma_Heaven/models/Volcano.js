@@ -33,7 +33,8 @@ const volcanoSchema = new mongoose.Schema({
     },
 
     typeVolcano: {
-        type: ["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"],
+        type: String,
+        enum: ["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"],
         required: true,
     },
 

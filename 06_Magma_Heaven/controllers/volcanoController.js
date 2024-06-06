@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const { isAuth } = require('../middlewares/authMiddleware');
-const { isVolcanoOwner } = require('../middlewares/volcanoMiddleware');
+const { isVolcanoOwner, isUserVoted } = require('../middlewares/volcanoMiddleware');
 const volcanoService = require('../services/volcanoService');
 const { getErrorMessage } = require('../utils/errorUtils');
-
 
 
 router.get('/', async (req, res) => {
@@ -11,19 +10,20 @@ router.get('/', async (req, res) => {
     res.render('volcanoes/catalog', { volcanoes })
 });
 
-router.get('/:volcanoId/details', async (req, res) => {
-    const volcano = await volcanoService.getOneDetailed(req.params.volcanoId).lean();
-    const signUpUsers = volcano.signUpList.map(user => user.username).join(', ');
+router.get('/:volcanoId/details', isUserVoted, async (req, res) => {
+    const volcano = req.volcano;
+    const votedUsers = volcano.voteList.length;
     const isOwner = volcano.owner && volcano.owner._id == req.user?._id;
-    const isSigned = volcano.signUpList.some(user => user._id == req.user?._id)
+    const isVoted = req.isVoted;
 
-    res.render('volcanoes/details', { ...volcano, signUpUsers, isOwner, isSigned });
+    res.render('volcanoes/details', { ...volcano, votedUsers, isOwner, isVoted });
 });
 
-router.get('/:volcanoId/sign-up', async(req, res) => {
-  await  volcanoService.signUp(req.params.volcanoId, req.user._id);
+router.get('/:volcanoId/vote', isUserVoted, async (req, res) => {
+        const isVoted = req.isVoted;
+    if (!isVoted) await volcanoService.vote(req.params.volcanoId, req.user._id);
 
-  res.redirect(`/volcanoes/${req.params.volcanoId}/details`);
+        res.redirect(`/volcanoes/${req.params.volcanoId}/details`);
 })
 
 router.get('/create', isAuth, (req, res) => {
@@ -42,7 +42,7 @@ router.post('/create', isAuth, async (req, res) => {
     }
 });
 
-router.post('/:volcanoId/edit', isVolcanoOwner, async (req, res) =>{
+router.post('/:volcanoId/edit', isVolcanoOwner, async (req, res) => {
     const volcanoData = req.body;
 
     try {
@@ -50,17 +50,17 @@ router.post('/:volcanoId/edit', isVolcanoOwner, async (req, res) =>{
         res.redirect(`/volcanoes/${req.params.volcanoId}/details`);
 
     } catch (error) {
-        res.render('volcanoes/edit', {...volcanoData, error: getErrorMessage(error)})
+        res.render('volcanoes/edit', { ...volcanoData, error: getErrorMessage(error) })
     }
 });
 
 router.get('/:volcanoId/edit', isVolcanoOwner, async (req, res) => {
-    
-    res.render('volcanoes/edit', {...req.volcano});
+
+    res.render('volcanoes/edit', { ...req.volcano });
 });
 
 router.get('/:volcanoId/delete', isVolcanoOwner, async (req, res) => {
-   
+
     await volcanoService.delete(req.params.volcanoId);
     res.redirect('/volcanoes');
 });

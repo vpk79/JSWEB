@@ -9,11 +9,11 @@ exports.getOne = (volcanoId) => Volcano.findById(volcanoId);
 
 exports.getLatest = () => Volcano.find().sort({createdAt: -1}).limit(3);
 
-exports.getOneDetailed = (volcanoId) => this.getOne(volcanoId).populate('owner').populate('signUpList');
+exports.getOneDetailed = (volcanoId) => this.getOne(volcanoId).populate('owner').populate('voteList');
 
-exports.signUp = async (volcanoId, userId) => {
-    await Volcano.findByIdAndUpdate(volcanoId, {$push: {signUpList: userId}});
-    await User.findByIdAndUpdate(userId, {$push: {signeUpVolcanoes: volcanoId}});
+exports.vote = async (volcanoId, userId) => {
+    await Volcano.findByIdAndUpdate(volcanoId, {$push: {voteList: userId}});
+    await User.findByIdAndUpdate(userId, {$push: {votedVolcanoes: volcanoId}});
 }
 
 exports.create = async (userId, volcanoData) => {
