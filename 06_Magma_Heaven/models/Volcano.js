@@ -1,21 +1,28 @@
 const mongoose = require('mongoose');
 
-const courseSchema = new mongoose.Schema({
-    title: {
+const volcanoSchema = new mongoose.Schema({
+    name: {
         type: String,
-        minLength: 5,
+        minLength: 2,
         required: true,
     },
 
-    type: {
+    location: {
         type: String,
         minLength: 3,
         required: true,
     },
 
-    certificate: {
-        type: String,
-        minLength: 2,
+    elevation: {
+        type: Number,
+        min: 0,
+        required: true,
+    },
+
+    lastEruption: {
+        type: Number,
+        min: 0,
+        max: 2024,
         required: true,
     },
 
@@ -25,19 +32,18 @@ const courseSchema = new mongoose.Schema({
         required: true,
     },
 
+    typeVolcano: {
+        type: String["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"],
+        required: true,
+    },
+
     description: {
         type: String,
         minLength: 10,
         required: true,
     },
 
-    price: {
-        type: Number,
-        min: 0,
-        required: true,
-    },
-
-    signUpList: [{
+    voteList: [{
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }],
@@ -50,12 +56,12 @@ const courseSchema = new mongoose.Schema({
     },
 });
 
-courseSchema.pre('save', function(){
+volcanoSchema.pre('save', function(){
     if(!this.createdAt) {
         this.createdAt = Date.now();
     }
 });
 
-const Course = mongoose.model('Course', courseSchema);
+const Volcano = mongoose.model('Volcano', volcanoSchema);
 
-module.exports = Course;
+module.exports = Volcano;

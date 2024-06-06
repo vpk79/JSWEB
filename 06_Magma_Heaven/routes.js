@@ -2,11 +2,11 @@
 const router = require('express').Router();
 const homeController = require('./controllers/homeController');
 const authController = require('./controllers/authController');
-const courseController = require('./controllers/courseController');
+const volcanoController = require('./controllers/volcanoController');
 
 router.use(homeController);
 router.use('/auth', authController);
-router.use('/courses', courseController);
+router.use('/volcanoes', volcanoController);
 
 router.all('*', (req, res) => {
     res.render('404');

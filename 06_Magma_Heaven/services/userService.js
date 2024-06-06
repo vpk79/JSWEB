@@ -1,3 +1,3 @@
 const User = require('../models/User')
 
-exports.getInfo = (userId) => User.findById(userId).populate(['createdCourses', 'signedUpCourses']);
+exports.getInfo = (userId) => User.findById(userId).populate(['createdVolcanoеs', 'signedUpVolcanoеs']);

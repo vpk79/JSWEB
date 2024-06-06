@@ -1,18 +1,18 @@
 const router = require('express').Router();
 const { isAuth } = require('../middlewares/authMiddleware');
-const courseService = require('../services/courseService');
+const volcanoService = require('../services/volcanoService');
 const userService = require('../services/userService');
 
 router.get('/', async (req, res) => {
-    const latestCourses = await courseService.getLatest().lean();
-    res.render('home', { latestCourses });
+    const latestVolcanoes = await volcanoService.getLatest().lean();
+    res.render('home', { latestVolcanoes });
 })
 
 router.get('/profile', isAuth, async (req, res) => {
     const user = await userService.getInfo(req.user._id).lean();
-    const createdCourseCount = user.createdCourses.length;
-    const signUpCoursesCount = user.signedUpCourses.length;
-    res.render('profile', { user, createdCourseCount, signUpCoursesCount });
+    const createdVolcanoCount = user.createdVolcanoes.length;
+    const signUpVolcanoesCount = user.signedUpVolcanoes.length;
+    res.render('profile', { user, createdVolcanoCount, signUpVolcanoesCount });
 });
 
 module.exports = router;

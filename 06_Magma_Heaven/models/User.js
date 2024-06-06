@@ -22,27 +22,20 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Password is required'],
     },
 
-    createdCourses: [{
+    createdVolcanoes: [{
         type: mongoose.Types.ObjectId,
-        ref: 'Course'
+        ref: 'Volcano'
     }],
 
-    signedUpCourses: [{
+    votedVolcanoes: [{
         type: mongoose.Types.ObjectId,
-        ref: 'Course'
+        ref: 'Volcano'
     }],
 });
 
 userSchema.pre('save', async function () {             // преди създаването на модело и save хешираме паролата
     this.password = await bcrypt.hash(this.password, 12)
 });
-
-// userSchema.virtual('rePassword')
-//     .set(function(value){
-//         if(value !== this.password){
-//             throw new Error('Password mismatch');
-//         }
-//     })
 
 const User = mongoose.model('User', userSchema);
 
