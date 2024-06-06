@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { isAuth } = require('../middlewares/authMiddleware');
-const { isVolcanoOwner } = require('../middlewares/volcanoMIddleware');
+const { isVolcanoOwner } = require('../middlewares/volcanoMiddleware');
 const volcanoService = require('../services/volcanoService');
 const { getErrorMessage } = require('../utils/errorUtils');
 
