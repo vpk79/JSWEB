@@ -17,9 +17,16 @@ router.get('/profile', isAuth, async (req, res) => {
 
 
 router.get('/search', async (req, res) => {
-    const { name, type } = req.query;
-    const volcanoes = await volcanoService.search(name, type).lean();
-    res.render('search', { name, type});
-})
+    const { name, typeVolcano } = req.query;
+    if (name || typeVolcano) {
+       
+        const volcanoes = await volcanoService.search(name, typeVolcano).lean();
+       
+        res.render('search', { volcanoes });
+    } else {
+        const volcanoes = await volcanoService.getAll().lean();
+        res.render('search', { volcanoes });
+    }
+});
 
 module.exports = router;

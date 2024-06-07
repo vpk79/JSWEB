@@ -31,3 +31,13 @@ exports.create = async (userId, volcanoData) => {
 exports.edit = (volcanoId, volcanoData) => Volcano.findByIdAndUpdate(volcanoId, volcanoData, { runValidators: true});
 
 exports.delete = (volcanoId) => Volcano.findByIdAndDelete(volcanoId);
+
+
+exports.search = (name, typeVolcano) => {
+    let query = {};
+
+    if (name) { query.name = new RegExp(name, 'i') }
+    if (typeVolcano) { query.typeVolcano = typeVolcano }
+
+    return Volcano.find(query);
+}
