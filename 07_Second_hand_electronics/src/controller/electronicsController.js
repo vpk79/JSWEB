@@ -68,16 +68,16 @@ router.get('/:electronicsId/delete', checkIsOwner, async (req, res) => {
     try {
         await electronicsService.delete(req.params.electronicsId);
 
-        res.redirect('/electronics/dashboard');
+        res.redirect('/electronics/catalog');
     } catch (error) {
-        res.render('electronics/create', { error: getErrorMessage(error) });
+        res.render('electronics/create', {...req.body, error: getErrorMessage(error) });
     }
 
 });
 
 router.get('/:electronicsId/edit', async (req, res) => {
-    let electronics = await electronicsService.getOne(req.params.electronicsId);
-    res.render('electronics/edit', { ...electronics.toObject() })
+    let electronics = await electronicsService.getOne(req.params.electronicsId).lean();
+    res.render('electronics/edit', { ...electronics })
 });
 
 router.post('/:electronicsId/edit', checkIsOwner, async (req, res) => {
@@ -87,7 +87,7 @@ router.post('/:electronicsId/edit', checkIsOwner, async (req, res) => {
         res.redirect(`/electronics/${req.params.electronicsId}/details`);
     } catch {
         console.log(getErrorMessage(error));
-        res.render('electronics/create', { error: getErrorMessage(error) });
+        res.render('electronics/create', { ...req.body, error: getErrorMessage(error) });
     }
 
 });
