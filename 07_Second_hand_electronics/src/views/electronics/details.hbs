@@ -1,50 +1,31 @@
-<main class="details">
-    <!-- Details page -->
-    <section id="details">
-        <div id="details-wrapper">
-            <p id="details-title">Name: {{name}}</p>
-            <div id="img-wrapper">
-                <img src="{{image}}" />
-            </div>
-            <div id="info-wrapper">
-                <table>
-                    <tr>
-                        <td>
-                            <p>
-                                Category: <span id="details-category">{{category}}</span>
-                            </p>
-                        </td>
-                        <td>
-                            <p>Color: <span id="details-color">{{color}}</span></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Location: <span id="details-location">{{location}}</span></p>
-                        </td>
-                        <td>
-                            <p>Formula: <span id="details-formula">{{formula}}</span></p>
-                        </td>
-                    </tr>
-                </table>
-                <p>Description: <span id="details-description">{{description}}</span></p>
-            </div>
 
-            <!--Edit and Delete are only for creator-->
-            {{#if user}}
-            <div id="action-buttons">
-                {{#if isOwner}}
-                <a href="/stone/{{_id}}/edit" id="edit-btn">Edit</a>
-                <a href="/stone/{{_id}}/delete" id="delete-btn">Delete</a>
-                {{else}}
-                {{#if isLiked}}
-                <p id="already-liked">You already liked this stone!</p>
-                {{else}}
-                <a href="/stone/{{_id}}/like" id="like-btn">Like</a>
-                {{/if}}
-                {{/if}}
+
+        <section id="detailsPage">
+            <div id="detailsInfo">
+                <h1>Name: {{name}}</h1>
+                <div class="info"><img src="{{image}}"></div>
+
+                <div class="info">
+                    <h3>Type: {{type}}</h3>
+                    <h3>Year of Production: {{production}}</h3>
+                    <h3>Years of Exploitation: {{exploitation}}</h3>
+                    <h3>Damages: {{damage}}</h3>
+                    <h3>Description: {{description}}</h3>
+                    <h2>Price: ${{price}}</h2>
+                </div>
+
+                <!--If there is user logged in-->
+                <div class="buttons">
+                    
+                    <!--If user is not owner of the toy post-->
+                    <a href="#" class="buy-btn">Buy</a>
+
+                    <!--If user is owner-->
+                    <a href="#" class="edit-btn">Edit</a>
+                    <a href="#" class="delete-btn">Delete</a>
+
+                    <!--If user is not the owner and is bought this toy-->
+                    <p><span class="buy">Thank You For Your Purchase</span></p>
+                </div>
             </div>
-            {{/if}}
-        </div>
-    </section>
-</main>
+        </section>

@@ -5,7 +5,7 @@ exports.create = (electronicsData) => Electronics.create(electronicsData);
 
 exports.getAll = () => Electronics.find().lean();
 
-exports.getOne = (electronicsId) => Electronics.findById(electronicsId).populate('liked');
+exports.getOne = (electronicsId) => Electronics.findById(electronicsId).populate('buyingList');
 
 exports.delete = (electronicsId) => Electronics.findByIdAndDelete(electronicsId);
 

@@ -8,11 +8,11 @@ router.get('/catalog', async (req, res) => {
     res.render('electronics/catalog', { electronics })
 });
 
-router.get('/add-electronics', (req, res) => {
+router.get('/create', (req, res) => {
     res.render('electronics/create')
 });
 
-router.post('/add-electronics', isAuth, async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     try {
         await electronicsService.create({ ...req.body, owner: req.user._id });
         res.redirect('/electronics/catalog');
@@ -34,14 +34,14 @@ function getErrorMessage(error) {
 }
 
 router.get('/:electronicsId/details', async (req, res) => {
-    let electronics = await electronicsService.getOne(req.params.electronicsId);
-    let electronicsData = await electronics.toObject();
+    let electronics = await electronicsService.getOne(req.params.electronicsId).lean();
+    // let electronicsData = electronics.toObject();
 
-    let isOwner = electronicsData.owner == req.user?._id;
-    let like = electronics.getLiked();
-    let isLiked = req.user && like.some(c => c._id == req.user?._id);
+    let isOwner = electronics.owner == req.user?._id;
+    // let like = electronics.getLiked();
+    // let isLiked = req.user && like.some(c => c._id == req.user?._id);
 
-    res.render('electronics/details', { ...electronicsData, isOwner, isLiked })
+    res.render('electronics/details', { ...electronics, isOwner })
 });
 
 async function isOwner(req, res, next) {
