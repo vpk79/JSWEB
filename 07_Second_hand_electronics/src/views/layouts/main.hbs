@@ -3,50 +3,47 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles/styles.css" />
-    <title>{{title}}</title>
+    <title>Second Hand Electronics</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 
 <body>
+    <!-- In case of error, you should display div with class "errorContainer" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
     {{#if error}}
-    <div class="errorContainer">
-        <p>{{error}}</p>
+    <div>
+        <div class="errorContainer">
+            <p>{{error}}</p>
+        </div>
     </div>
     {{/if}}
-    <div id="wrapper">
-        <header>
-            <!-- Navigation -->
-            <nav>
-                <div>
-                    <a href="/">Home</a>
-                    <a href="/stone/dashboard">Dashboard</a>
-                    <a href="/search">Search</a>
-                </div>
+
+    <div id="container">
+
+        <nav>
+            <ul>
+                <!--For all users-->
+                <li><a href="/">Home</a></li>
+                <li><a href="/electronics/catalog">Catalog</a></li>
                 {{#if user}}
-                <!-- Logged-in users -->
-                <div class="user">
-                    <a href="/stone/add-stone">Add Stones</a>
-                    <a href="/auth/logout">Logout</a>
-                </div>
+                <!--For loggin users-->
+                <li><a href="/electronics/create">Create Offer</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
                 {{else}}
-                <!-- Guest users -->
-                <div class="guest">
-                    <a href="/auth/login">Login</a>
-                    <a href="/auth/register">Register</a>
-                </div>
+                <!--For guest user-->
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/register">Register</a></li>
                 {{/if}}
-            </nav>
-        </header>
+            </ul>
+
+        </nav>
 
         {{{body}}}
 
-
-        <footer>
-            <p>@EarthTreasureVaul</p>
-        </footer>
+        <footer>@SoftUni - JS Back-End - Second Hand Electronics 2023</footer>
     </div>
+
 </body>
 
 </html>

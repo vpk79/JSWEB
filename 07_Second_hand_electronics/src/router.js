@@ -2,11 +2,11 @@ const router = require('express').Router();
 
 const homeController = require('./controller/homeController');
 const authController = require('./controller/authController');
-const animalsController = require('./controller/stoneController');
+const electronicsController = require('./controller/electronicsController');
 
 router.use('/', homeController);
 router.use('/auth', authController);
-router.use('/stone', animalsController);
+router.use('/electronics', electronicsController);
 router.use('*', (req, res) => {
     res.render('404');
 });

@@ -27,9 +27,9 @@ router.get('/register', isGuest, (req, res) => {
 });
 
 router.post('/register', isGuest, async (req, res) => {
-    const { email, password, confirmPass } = req.body;
+    const { email, password, rePassword } = req.body;
 
-    if (password !== confirmPass) {
+    if (password !== rePassword) {
         res.locals.error = 'Passwords or Email do not match'
         return res.render('auth/register')
     }

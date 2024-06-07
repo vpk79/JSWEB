@@ -1,15 +1,20 @@
-<main class="register">
-    <!-- Register Page (Only for Guest users) -->
-    <section id="register">
-        <div class="form">
-            <h2>Register</h2>
-            <form class="login-form" method="POST" action="/auth/register">
-                <input type="text" name="email" id="register-email" placeholder="email" />
-                <input type="password" name="password" id="register-password" placeholder="password" />
-                <input type="password" name="confirmPass" id="repeat-password" placeholder="repeat password" />
-                <button type="submit">Register</button>
-                <p class="message">Already registered? <a href="/auth/login">Login</a></p>
+
+        <section id="registerPage">
+            <form id='registerForm'  method="POST">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" placeholder="Email">
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your Username">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+
+                <label for="rePassword">Repeat Password:</label>
+                <input type="password" id="rePassword" name="rePassword" placeholder="Repeat Password">
+
+                <input type="submit" class="register" value="Register">
             </form>
-        </div>
-    </section>
-</main>
+        </section>
+
+  

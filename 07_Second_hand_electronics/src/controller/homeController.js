@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const stoneService = require('../services/stoneService');
+const electronicsService = require('../services/electronicsService');
 
 router.get('/', async (req, res) => {
-    let stone = await stoneService.findTheThree();
-    stone = stone.slice(0, 3);
-    res.render('home', { stone });
+    // let stone = await electronicsService.findTheThree();
+    // stone = stone.slice(0, 3);
+    res.render('home');
 });
 
 router.get('/search', async (req, res) => {
