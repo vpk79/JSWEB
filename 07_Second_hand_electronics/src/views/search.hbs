@@ -1,27 +1,24 @@
-<main class="search">
-    <!-- Search Page (Only for logged-in users) -->
-    <section id="search">
-        <h2>Search by Name</h2>
+<section class="search">
+    <h1>Search</h1>
 
-        <form class="search-wrapper cf">
-            <input id="#search-input" type="text" name="search" placeholder="Search here..." required />
-            <button type="submit">Search</button>
-        </form>
-
-        <div id="search-container">
-            {{#if stone}}
-            <ul class="card-wrapper">
-                <!-- Display a li with information about every post (if any)-->
-                {{#each stone}}
-                {{> stone-card}}
-                {{/each}}
-            </ul>
-            {{else}}
-            <!-- Display an h2 if there are no posts -->
-            <div id="no-post">
-                <h2>There are no results found.</h2>
-            </div>
-            {{/if}}
+    <form class="search-form" method="GET">
+        <input type="text" class="search-name" name="name" placeholder="Search Name..." value="{{name}}">
+        <input type="text" class="search-type" name="type" placeholder="Search Type..." value="{{type}}">
+        <button type="submit" class="btn-search">Search</button>
+    </form>
+    {{#if result}}
+    <!--If there are matches after search-->
+    <div class="search-result">
+        <div class="search-list">
+        {{#each result}}
+        {{> search-card}}
+        {{/each}}
         </div>
-    </section>
-</main>
+    </div>
+    {{else}}
+    <!--If there are no matches-->
+    <div class="no-match">
+        <p>No match was found!</p>
+    </div>
+    {{/if}}
+</section>

@@ -21,10 +21,17 @@ exports.delete = (electronicsId) => Electronics.findByIdAndDelete(electronicsId)
 
 exports.updateOne = (electronicsId, electronicsData) => Electronics.findByIdAndUpdate(electronicsId, electronicsData);
 
-exports.search = (electronicsText) => {
-    if (electronicsText) {
-        return (Electronics.find({ name: { $regex: electronicsText, $options: 'i' } }).lean());
+exports.search = (data) => {
+    let result = {};
+    if (data.name) {
+        result.name =  new RegExp(data.name, 'i');
     }
+    if(data.type){
+        result.type = data.type;
+    }
+
+    return (Electronics.find(result).lean());
+
 }
 
 // exports.findTheThree = () => Electronics.find({}).sort({ createdAt: -1 }).lean();

@@ -9,15 +9,16 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-    let stoneText = req.query.search;
+    let name = req.query.name;
+    let type = req.query.type;
 
-    let stone = await stoneService.search(stoneText);
+    let result = await electronicsService.search({name, type});
 
-    if (stone == undefined) {
-        stone = await stoneService.getAll();
+    if (!name && !type) {
+        result = await electronicsService.getAll();
     }
 
-    res.render('search', { stone })
+    res.render('search', { result })
 })
 
 module.exports = router;
