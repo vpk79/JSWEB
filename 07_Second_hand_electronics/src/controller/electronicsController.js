@@ -15,10 +15,10 @@ router.get('/add-electronics', (req, res) => {
 router.post('/add-electronics', isAuth, async (req, res) => {
     try {
         await electronicsService.create({ ...req.body, owner: req.user._id });
-        res.redirect('/electronics/dashboard');
+        res.redirect('/electronics/catalog');
     } catch (error) {
-        console.log(error);
-        res.render('electronics/create', { error: getErrorMessage(error) });
+        // console.log(error);
+        res.render('electronics/create', { ...req.body, error: getErrorMessage(error) });
     }
 });
 
