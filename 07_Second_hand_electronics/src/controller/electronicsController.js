@@ -17,7 +17,7 @@ router.post('/create', isAuth, async (req, res) => {
         await electronicsService.create({ ...req.body, owner: req.user._id });
         res.redirect('/electronics/catalog');
     } catch (error) {
-        // console.log(error);
+        console.log(error);
         res.render('electronics/create', { ...req.body, error: getErrorMessage(error) });
     }
 });
@@ -33,22 +33,18 @@ function getErrorMessage(error) {
 
 }
 
-router.get('/:electronicsId/details', async (req, res) => {
-    let electronics = await electronicsService.getOne(req.params.electronicsId).lean();
-    // let electronicsData = electronics.toObject();
-
+router.get('/:electronicsId/details', checkIsBuyed, async (req, res) => {
+    let electronics = req.electronics;
     let isOwner = electronics.owner == req.user?._id;
-    // let like = electronics.getLiked();
-    // let isLiked = req.user && like.some(c => c._id == req.user?._id);
-
-    res.render('electronics/details', { ...electronics, isOwner })
+    let isBuyed = req.isBuyed;
+    res.render('electronics/details', { ...electronics, isOwner, isBuyed })
 });
 
 async function isOwner(req, res, next) {
     let electronics = await electronicsService.getOne(req.params.electronicsId);
 
     if (electronics.owner == req.user._id) {
-        res.redirect(`/electronics/${req.params.electronicsId}details/`);
+        res.redirect(`/electronics/${req.params.electronicsId}/details/`);
     } else {
         next();
     }
@@ -64,13 +60,22 @@ async function checkIsOwner(req, res, next) {
     }
 };
 
+async function checkIsBuyed(req, res, next) {
+    let electronics = await electronicsService.getOne(req.params.electronicsId).lean();
+    let buyList = electronics.buyingList;
+    let isBuyed = req.user && buyList.some(c => c._id == req.user?._id);
+    req.isBuyed = isBuyed;
+    req.electronics = electronics;
+    next();
+}
+
 router.get('/:electronicsId/delete', checkIsOwner, async (req, res) => {
     try {
         await electronicsService.delete(req.params.electronicsId);
 
         res.redirect('/electronics/catalog');
     } catch (error) {
-        res.render('electronics/create', {...req.body, error: getErrorMessage(error) });
+        res.render('electronics/create', { ...req.body, error: getErrorMessage(error) });
     }
 
 });
@@ -92,13 +97,20 @@ router.post('/:electronicsId/edit', checkIsOwner, async (req, res) => {
 
 });
 
-router.get('/:electronicsId/like', isOwner, async (req, res) => {
-    let electronics = await electronicsService.getOne(req.params.electronicsId);
+router.get('/:electronicsId/buy', isOwner, checkIsBuyed, async (req, res) => {
+    let isBuyed = req.isBuyed;
+    
+    if (isBuyed) {
+        res.redirect(`/electronics/${req.params.electronicsId}/details`);
+    } else {
+        await electronicsService.buy(req.params.electronicsId, req.user._id);
+        // let electronics = await electronicsService.getOne(req.params.electronicsId);
+        // electronics.buyingList.push(req.user._id);
+        // await electronics.save();
 
-    electronics.liked.push(req.user._id);
-    await electronics.save();
+        res.redirect(`/electronics/${req.params.electronicsId}/details`);
+    }
 
-    res.redirect(`/electronics/${req.params.electronicsId}/details`);
 })
 
 module.exports = router;

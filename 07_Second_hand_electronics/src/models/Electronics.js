@@ -62,9 +62,9 @@ let electronicsSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-electronicsSchema.method('getBuyingList', function () {
-    return this.buyingList.map(x => x._id);
-});
+// electronicsSchema.method('getBuyingList', function () {
+//     return this.buyingList.map(x => x._id);
+// });
 
 let Electronics = mongoose.model('Electronics', electronicsSchema);
 

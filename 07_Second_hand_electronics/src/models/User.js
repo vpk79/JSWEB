@@ -18,7 +18,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
         minLength: 4,
-    }
+    },
+    createdElectronics: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Electronics'
+    }],
+
+    buyedElectronics: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Electronics'
+    }],
 });
 
 userSchema.pre('save', function (next) {

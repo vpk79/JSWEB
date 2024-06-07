@@ -1,7 +1,17 @@
-
+const User = require('../models/User');
 const Electronics = require('../models/Electronics');
 
-exports.create = (electronicsData) => Electronics.create(electronicsData);
+exports.create = async (electronicsData) => {
+   const createdElectronics =  await Electronics.create(electronicsData);
+    const userId = createdElectronics.owner;
+    await User.findByIdAndUpdate(userId, { $push: { createdElectronics: createdElectronics._id } });
+    return createdElectronics;
+};
+
+exports.buy = async (electronicsId, userId) => {
+    await Electronics.findByIdAndUpdate(electronicsId, { $push: { buyingList: userId } });
+    await User.findByIdAndUpdate(userId, { $push: { buyedElectronics: electronicsId } });
+}
 
 exports.getAll = () => Electronics.find().lean();
 
@@ -17,4 +27,4 @@ exports.search = (electronicsText) => {
     }
 }
 
-exports.findTheThree = () => Electronics.find({}).sort({ createdAt: -1 }).lean();
+// exports.findTheThree = () => Electronics.find({}).sort({ createdAt: -1 }).lean();
